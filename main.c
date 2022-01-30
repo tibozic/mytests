@@ -14,6 +14,7 @@ int main(void)
 	test_not_equal();
 	test_true();
 	test_false();
+	print_report();
 
 	return 0;
 }

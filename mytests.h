@@ -27,5 +27,6 @@ void expect_eq(const char *function_name, int line_number, int value1, int value
 void expect_neq(const char *function_name, int line_number, int value1, int value2);
 void expect_true(const char *function_name, int line_number, bool value);
 void expect_false(const char *function_name, int line_number, bool value);
+void print_report();
 
 #endif // MYTESTS_H_

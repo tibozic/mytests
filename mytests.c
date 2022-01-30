@@ -1,10 +1,13 @@
 #include "mytests.h"
 
-int FAILED = 0;
+int failed_current = 0;
+int failed_total = 0;
+int tests_total = 0;
 FILE *fp;
 
 void expect_eq(const char *function_name, int line_number, int value1, int value2)
 {
+	tests_total++;
 	if (value1 == value2)
 	{
 		fprintf(fp,
@@ -14,7 +17,8 @@ void expect_eq(const char *function_name, int line_number, int value1, int value
 	}
 	else
 	{
-		FAILED++;
+		failed_current++;
+		failed_total++;
 		fprintf(fp,
 				"\t[ " ANSI_COLOR_RED " Failed " ANSI_COLOR_RESET " ] %s:%d\n",
 				function_name,
@@ -28,6 +32,7 @@ void expect_eq(const char *function_name, int line_number, int value1, int value
 
 void expect_neq(const char *function_name, int line_number, int value1, int value2)
 {
+	tests_total++;
 	if (value1 != value2)
 	{
 		fprintf(fp,
@@ -37,7 +42,8 @@ void expect_neq(const char *function_name, int line_number, int value1, int valu
 	}
 	else
 	{
-		FAILED++;
+		failed_total++;
+		failed_current++;
 		fprintf(fp,
 				"\t[ " ANSI_COLOR_RED " Failed " ANSI_COLOR_RESET " ] %s:%d\n",
 				function_name,
@@ -51,6 +57,7 @@ void expect_neq(const char *function_name, int line_number, int value1, int valu
 
 void expect_true(const char *function_name, int line_number, bool value)
 {
+	tests_total++;
 	if (value)
 	{
 		fprintf(fp,
@@ -60,7 +67,8 @@ void expect_true(const char *function_name, int line_number, bool value)
 	}
 	else
 	{
-		FAILED++;
+		failed_total++;
+		failed_current++;
 		fprintf(fp,
 				"\t[ " ANSI_COLOR_RED " Failed " ANSI_COLOR_RESET " ] %s:%d\n",
 				function_name,
@@ -72,6 +80,7 @@ void expect_true(const char *function_name, int line_number, bool value)
 
 void expect_false(const char *function_name, int line_number, bool value)
 {
+	tests_total++;
 	if (!value)
 	{
 		fprintf(fp,
@@ -81,7 +90,8 @@ void expect_false(const char *function_name, int line_number, bool value)
 	}
 	else
 	{
-		FAILED++;
+		failed_total++;
+		failed_current++;
 		fprintf(fp,
 				"\t[ " ANSI_COLOR_RED " Failed " ANSI_COLOR_RESET " ] %s:%d\n",
 				function_name,
@@ -111,16 +121,16 @@ void start_test(const char *function_name, const char *section_name)
 void end_test(const char *function_name)
 {
 	fclose(fp);
-	if (FAILED == 0)
+	if (failed_current == 0)
 	{
 		fprintf(stdout,
 				"[ " ANSI_COLOR_GREEN " Passed " ANSI_COLOR_RESET " ] %s\n",
 				function_name);
-		FAILED = 0;
+		failed_current = 0;
 	}
 	else
 	{
-		FAILED = 0;
+		failed_current = 0;
 		fprintf(stderr,
 				"[ " ANSI_COLOR_RED " Failed " ANSI_COLOR_RESET " ] %s\n",
 				function_name);
@@ -157,4 +167,15 @@ void end_test(const char *function_name)
 				"Failed to delete temporary file: `temp.txt` (file is part of the testing libarary)\n");
 		exit(1);
 	}
+}
+
+void print_report()
+{
+	fprintf(stdout, "**** Status report *****\n");
+	fprintf(stdout,
+			"Ran %d tests, " ANSI_COLOR_GREEN " %d passed" ANSI_COLOR_RESET ", " ANSI_COLOR_RED " %d failed\n" ANSI_COLOR_RESET,
+			tests_total,
+			(tests_total - failed_total),
+			failed_total);
+	fprintf(stdout, "****\n");
 }
