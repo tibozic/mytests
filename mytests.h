@@ -2,6 +2,12 @@
 #define MYTESTS_H_
 
 #include <stdio.h>
+#include <stdlib.h>
+
+#define START_TEST(...) start_test(__FUNCTION__, __VA_ARGS__)
+#define END_TEST() end_test(__FUNCTION__)
+#define EXPECT_EQ(...) expect_eq(__FUNCTION__, __LINE__, __VA_ARGS__)
+#define EXPECT_NEQ(...) expect_neq(__FUNCTION__, __LINE__,  __VA_ARGS__)
 
 // ANSI color codes
 #define ANSI_COLOR_RED     "\x1b[31m"
@@ -12,6 +18,9 @@
 #define ANSI_COLOR_CYAN    "\x1b[36m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
-void expect_equal(const char *function_name, int value1, int value2);
+void start_test(const char *function_name, const char *section_name);
+void end_test(const char *function_name);
+void expect_eq(const char *function_name, int line_number, int value1, int value2);
+void expect_neq(const char *function_name, int line_number, int value1, int value2);
 
 #endif // MYTESTS_H_
