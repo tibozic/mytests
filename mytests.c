@@ -49,6 +49,48 @@ void expect_neq(const char *function_name, int line_number, int value1, int valu
 	}
 }
 
+void expect_true(const char *function_name, int line_number, bool value)
+{
+	if (value)
+	{
+		fprintf(fp,
+				"\t[ " ANSI_COLOR_GREEN " Passed " ANSI_COLOR_RESET " ] %s:%d\n",
+				function_name,
+				line_number);
+	}
+	else
+	{
+		FAILED++;
+		fprintf(fp,
+				"\t[ " ANSI_COLOR_RED " Failed " ANSI_COLOR_RESET " ] %s:%d\n",
+				function_name,
+				line_number);
+		fprintf(fp,
+				"\t\t\t\t Expected `TRUE (1)`, got `%d`\n", value);
+	}
+}
+
+void expect_false(const char *function_name, int line_number, bool value)
+{
+	if (!value)
+	{
+		fprintf(fp,
+				"\t[ " ANSI_COLOR_GREEN " Passed " ANSI_COLOR_RESET " ] %s:%d\n",
+				function_name,
+				line_number);
+	}
+	else
+	{
+		FAILED++;
+		fprintf(fp,
+				"\t[ " ANSI_COLOR_RED " Failed " ANSI_COLOR_RESET " ] %s:%d\n",
+				function_name,
+				line_number);
+		fprintf(fp,
+				"\t\t\t\t Expected `FALSE (0)`, got `%d`\n", value);
+	}
+}
+
 void start_test(const char *function_name, const char *section_name)
 {
 	fprintf(stdout,
