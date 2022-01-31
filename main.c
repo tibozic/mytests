@@ -35,6 +35,7 @@ void test_not_equal()
 	START_TEST("Test not equal");
 	EXPECT_NEQ(1, 2);
 	END_TEST();
+
 	START_TEST("Test equal");
 	EXPECT_NEQ(1, 1);
 	END_TEST();
