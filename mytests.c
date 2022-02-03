@@ -7,6 +7,7 @@ FILE *fp;
 
 void expect_eq(const char *function_name, int line_number, int value1, int value2)
 {
+	extern int failed_current;
 	if (value1 == value2)
 	{
 		fprintf(fp,
@@ -34,6 +35,7 @@ void expect_eq(const char *function_name, int line_number, int value1, int value
 
 void expect_neq(const char *function_name, int line_number, int value1, int value2)
 {
+	extern int failed_current;
 	if (value1 != value2)
 	{
 		fprintf(fp,
@@ -61,6 +63,7 @@ void expect_neq(const char *function_name, int line_number, int value1, int valu
 
 void expect_true(const char *function_name, int line_number, bool value)
 {
+	extern int failed_current;
 	if (value)
 	{
 		fprintf(fp,
@@ -84,6 +87,7 @@ void expect_true(const char *function_name, int line_number, bool value)
 
 void expect_false(const char *function_name, int line_number, bool value)
 {
+	extern int failed_current;
 	if (!value)
 	{
 		fprintf(fp,
@@ -107,6 +111,7 @@ void expect_false(const char *function_name, int line_number, bool value)
 
 void start_test(const char *function_name, const char *section_name)
 {
+	extern int tests_total;
 	tests_total++;
 	fprintf(stdout,
 			"---- Staring tests for: %s:%s\n",
@@ -125,6 +130,9 @@ void start_test(const char *function_name, const char *section_name)
 
 void end_test(const char *function_name)
 {
+	extern int failed_current;
+	extern int failed_total;
+	extern int failed_current;
 	fclose(fp);
 	if (failed_current == 0)
 	{
@@ -177,6 +185,8 @@ void end_test(const char *function_name)
 
 void print_report()
 {
+	extern int tests_total;
+	extern int failed_total;
 	fprintf(stdout, "\n**** Status report *****\n");
 	fprintf(stdout,
 			"Ran %d tests, " ANSI_COLOR_GREEN " %d passed" ANSI_COLOR_RESET ", " ANSI_COLOR_RED " %d failed\n" ANSI_COLOR_RESET,
