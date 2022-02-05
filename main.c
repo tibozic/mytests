@@ -14,51 +14,51 @@ int main(void)
 	test_not_equal();
 	test_true();
 	test_false();
-	print_report();
+	report_print();
 
 	return 0;
 }
 
 void test_equal()
 {
-	START_TEST("Test Equal");
+	TEST_START("Test Equal");
 	EXPECT_EQ(1, 1);
-	END_TEST();
+	TEST_END();
 
-	START_TEST("Test Not Equal");
+	TEST_START("Test Not Equal");
 	EXPECT_EQ(1, 2);
-	END_TEST();
+	TEST_END();
 }
 
 void test_not_equal()
 {
-	START_TEST("Test not equal");
+	TEST_START("Test not equal");
 	EXPECT_NEQ(1, 2);
-	END_TEST();
+	TEST_END();
 
-	START_TEST("Test equal");
+	TEST_START("Test equal");
 	EXPECT_NEQ(1, 1);
-	END_TEST();
+	TEST_END();
 }
 
 void test_true()
 {
-	START_TEST("Test true");
+	TEST_START("Test true");
 	EXPECT_TRUE(true);
-	END_TEST();
+	TEST_END();
 
-	START_TEST("Test false");
+	TEST_START("Test false");
 	EXPECT_TRUE(false);
-	END_TEST();
+	TEST_END();
 }
 
 void test_false()
 {
-	START_TEST("Test false");
+	TEST_START("Test false");
 	EXPECT_FALSE(false);
-	END_TEST();
+	TEST_END();
 
-	START_TEST("Test true");
+	TEST_START("Test true");
 	EXPECT_FALSE(true);
-	END_TEST();
+	TEST_END();
 }

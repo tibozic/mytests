@@ -109,7 +109,7 @@ void expect_false(const char *function_name, int line_number, bool value)
 	}
 }
 
-void start_test(const char *function_name, const char *section_name)
+void test_start(const char *function_name, const char *section_name)
 {
 	extern int tests_total;
 	tests_total++;
@@ -128,7 +128,7 @@ void start_test(const char *function_name, const char *section_name)
 	}
 }
 
-void end_test(const char *function_name)
+void test_end(const char *function_name)
 {
 	extern int failed_current;
 	extern int failed_total;
@@ -183,7 +183,7 @@ void end_test(const char *function_name)
 	}
 }
 
-void print_report()
+void report_print()
 {
 	extern int tests_total;
 	extern int failed_total;
